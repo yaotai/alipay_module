@@ -72,12 +72,16 @@ public class AliPayStringUtils {
 
         String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
         String encodedSign = "";
-
-        try {
-            encodedSign = URLEncoder.encode(oriSign, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (oriSign==null){
+            return null;
+        }else {
+            try {
+                encodedSign = URLEncoder.encode(oriSign, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
+
         return "sign=" + encodedSign;
     }
 

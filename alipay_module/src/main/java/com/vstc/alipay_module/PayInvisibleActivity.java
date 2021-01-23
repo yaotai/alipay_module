@@ -130,6 +130,10 @@ public class PayInvisibleActivity extends Activity {
         }
 		String orderParam = AliPayStringUtils.buildOrderParam(params);
 		String sign = AliPayStringUtils.getSign(params, payParams.getRsaKey(), rsa2);
+		if (sign==null){
+			DialogUtils.showAlert( this, "wrong RSA string");
+			return;
+		}
 		final String orderInfo = orderParam + "&" + sign;
 		final Runnable payRunnable = new Runnable() {
 
