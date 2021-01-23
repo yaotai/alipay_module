@@ -67,7 +67,7 @@ public class PayInvisibleActivity extends Activity {
 					// 该笔订单真实的支付结果，需要依赖服务端的异步通知。
 				//	showAlert(PayInvisibleActivity.this, getString(R.string.pay_failed) + payResult);
 					if (payResultCall!=null){
-						payResultCall.payFailed(payResult.toString());
+						payResultCall.payFailed(Integer.valueOf(resultStatus),resultInfo);
 						finish();
 					}
 				}
@@ -103,15 +103,15 @@ public class PayInvisibleActivity extends Activity {
 		 * orderInfo 的获取必须来自服务端；
 		 */
 		if (payParams.getAppId()==null||payParams.getAppId().equals("")){
-			DialogUtils.showAlert( this, "appId is null or equals\"\"");
+			DialogUtils.showAlert( this, "appId is null or is empty");
 			return;
 		}
 		if (payParams.getRsaKey()==null||payParams.getRsaKey().equals("")){
-			DialogUtils.showAlert( this, "RSA is null or equals\"\"");
+			DialogUtils.showAlert( this, "RSA is null or is empty");
 			return;
 		}
 		if (payParams.getAmount()==null||payParams.getAmount().equals("")){
-			DialogUtils.showAlert( this, "Amount is null or equals\"\"");
+			DialogUtils.showAlert( this, "Amount is null or is empty");
 			return;
 		}
 		if (payParams.getDescription()==null){
@@ -119,7 +119,7 @@ public class PayInvisibleActivity extends Activity {
 			return;
 		}
 		if (payParams.getOrderId()==null||payParams.getOrderId().equals("")){
-			DialogUtils.showAlert( this, "orderId is null or equals\"\"");
+			DialogUtils.showAlert( this, "orderId is null or is empty");
 			return;
 		}
         AliPayStringUtils.paramNullCheck(this,payParams);
