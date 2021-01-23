@@ -24,6 +24,7 @@
             android:layout_margin="10dp"
             android:onClick="authV2"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:text="@string/auth_with_alipay" />
         
         <Button
@@ -33,6 +34,7 @@
             android:layout_margin="10dp"
             android:onClick="h5Pay"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:text="@string/web_to_native" />
 
         <Button
@@ -41,6 +43,7 @@
             android:layout_margin="10dp"
             android:onClick="showSdkVersion"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:text="@string/check_sdk_version" />
         
         <TextView 
