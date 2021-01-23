@@ -13,6 +13,7 @@ import com.vstc.alipay_module.bean.PayParams;
 import com.vstc.alipay_module.bean.PayResult;
 import com.vstc.alipay_module.util.AliPayStringUtils;
 import com.vstc.alipay_module.util.DialogUtils;
+import com.vstc.alipay_module.view.TipDialog;
 
 import java.util.Map;
 
@@ -103,23 +104,23 @@ public class PayInvisibleActivity extends Activity {
 		 * orderInfo 的获取必须来自服务端；
 		 */
 		if (payParams.getAppId()==null||payParams.getAppId().equals("")){
-			DialogUtils.showAlert( this, "appId is null or is empty");
+			 showAlert( this, "appId is null or is empty");
 			return;
 		}
 		if (payParams.getRsaKey()==null||payParams.getRsaKey().equals("")){
-			DialogUtils.showAlert( this, "RSA is null or is empty");
+			 showAlert( this, "RSA is null or is empty");
 			return;
 		}
 		if (payParams.getAmount()==null||payParams.getAmount().equals("")){
-			DialogUtils.showAlert( this, "Amount is null or is empty");
+			 showAlert( this, "Amount is null or is empty");
 			return;
 		}
 		if (payParams.getDescription()==null){
-			DialogUtils.showAlert( this, "RSA is null");
+			 showAlert( this, "RSA is null");
 			return;
 		}
 		if (payParams.getOrderId()==null||payParams.getOrderId().equals("")){
-			DialogUtils.showAlert( this, "orderId is null or is empty");
+			 showAlert( this, "orderId is null or is empty");
 			return;
 		}
         AliPayStringUtils.paramNullCheck(this,payParams);
@@ -131,7 +132,7 @@ public class PayInvisibleActivity extends Activity {
 		String orderParam = AliPayStringUtils.buildOrderParam(params);
 		String sign = AliPayStringUtils.getSign(params, payParams.getRsaKey(), rsa2);
 		if (sign==null){
-			DialogUtils.showAlert( this, "wrong RSA string");
+			 showAlert( this, "RSA key error");
 			return;
 		}
 		final String orderInfo = orderParam + "&" + sign;
@@ -153,8 +154,16 @@ public class PayInvisibleActivity extends Activity {
 		payThread.start();
 	}
 
+	private void showAlert(PayInvisibleActivity payInvisibleActivity, String str) {
+		DialogUtils.showAlert(this, str, new TipDialog.ActionListenner() {
+			@Override
+			public void ok() {
+				PayInvisibleActivity.this.finish();
+			}
+		});
+	}
 
-	
+
 	/**
 	 * 获取支付宝 SDK 版本号。
 	 */
